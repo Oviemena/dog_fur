@@ -1,7 +1,0 @@
-
-{
-    "dialect": "postgresql",
-    "schema": "./app/db/schema.ts",
-    "out": "./drizzle",
-    "url": "${DATABASE_URL}"
-}

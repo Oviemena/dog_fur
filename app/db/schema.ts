@@ -9,8 +9,8 @@ export const users = pgTable('users', {
     email: text("email"),
     password: text("password"),
     role: text("role").$type<"admin" | "customer">(),
-    createdAt: timestamp("created_at"),
-    updatedAt: timestamp("updated_at"),
+    createdAt: timestamp("created_at").defaultNow(),
+    updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
 });
 
 export const usersRelations = relations(users, ({ one }) => ({
@@ -32,7 +32,7 @@ export const donations = pgTable('donations', {
     amount: text('amount'),
     userId: integer('user_id'),
     dogId: integer('dog_id'),
-    createdAt: timestamp("created_at"),
+    createdAt: timestamp("created_at").defaultNow(),
     isAnonymous: boolean('is_anonymous'),
 });
 
@@ -54,7 +54,7 @@ export const adoptions = pgTable('adoptions', {
     adoptionReason: text("adoption_reason").notNull(),
     paymentToken: text("payment_token"),
     scheduledAdoptionDate: timestamp('scheduled_date'),
-    createdAt: timestamp("created_at"),
+    createdAt: timestamp("created_at").defaultNow(),
 });
 
 
@@ -66,5 +66,16 @@ export const dogs = pgTable('dogs', {
     breed: text('breed').notNull(),
     age: integer("age").notNull(),
     behaviour: text("behaviour"),
-    imageUrl: text('image_url')
+    imageUrl: text('image_url'),
+    color: text('color')
 })
+
+
+export type InsertUsers = typeof users.$inferInsert
+export type SelectUsers = typeof users.$inferSelect
+export type InsertAdoptions = typeof adoptions.$inferInsert
+export type SelectAdoptions = typeof adoptions.$inferSelect
+export type InsertDogs = typeof dogs.$inferInsert
+export type SelectDogs = typeof dogs.$inferSelect
+export type InsertDonations = typeof donations.$inferInsert
+export type SelectDonations = typeof donations.$inferSelect

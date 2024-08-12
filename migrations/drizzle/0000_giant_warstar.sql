@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS "adoptions" (
 	"adoption_reason" text NOT NULL,
 	"payment_token" text,
 	"scheduled_date" timestamp,
-	"created_at" timestamp
+	"created_at" timestamp DEFAULT now()
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "dogs" (
@@ -24,7 +24,8 @@ CREATE TABLE IF NOT EXISTS "dogs" (
 	"breed" text NOT NULL,
 	"age" integer NOT NULL,
 	"behaviour" text,
-	"image_url" text
+	"image_url" text,
+	"color" text
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "donations" (
@@ -32,7 +33,7 @@ CREATE TABLE IF NOT EXISTS "donations" (
 	"amount" text,
 	"user_id" integer,
 	"dog_id" integer,
-	"created_at" timestamp,
+	"created_at" timestamp DEFAULT now(),
 	"is_anonymous" boolean
 );
 --> statement-breakpoint
@@ -48,7 +49,7 @@ CREATE TABLE IF NOT EXISTS "users" (
 	"email" text,
 	"password" text,
 	"role" text,
-	"created_at" timestamp,
+	"created_at" timestamp DEFAULT now(),
 	"updated_at" timestamp
 );
 --> statement-breakpoint
